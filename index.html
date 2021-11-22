@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+    <title>学习通签到二维码生成器</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <header class="mdc-top-app-bar">
+        <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button"
+                    onclick="openSnackBar('别乱点我qwq')">menu</button>
+                <span class="mdc-top-app-bar__title">学习通签到二维码生成器</span>
+            </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+                    aria-label="Bookmark this page" onclick="openSnackBar('自己复制链接...')">share</button>
+            </section>
+        </div>
+    </header>
+
+    <main class="mdc-top-app-bar--short-fixed-adjust">
+        <div id="my-form">
+            <div>
+                <label class="mdc-text-field mdc-text-field--filled my-textfield">
+                    <span class="mdc-text-field__ripple"></span>
+                    <span class="mdc-floating-label" id="my-input-label-1">二维码扫描结果</span>
+                    <input class="mdc-text-field__input" type="text" aria-labelledby="my-input-label-1" id="my-input-1">
+                    <span class="mdc-line-ripple"></span>
+                </label>
+            </div>
+            <button class="mdc-button mdc-button--raised" id="my-button" onclick="generate()">
+                <span class="mdc-button__ripple"></span>
+                <i class="material-icons mdc-button__icon" aria-hidden="true">check</i>
+                <span class="mdc-button__label">生成</span>
+            </button>
+        </div>
+
+        <div class="mdc-snackbar">
+            <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+                <div class="mdc-snackbar__label" aria-atomic="false">
+                    Content
+                </div>
+                <div class="mdc-snackbar__actions" aria-atomic="true">
+                    <button type="button" class="mdc-button mdc-snackbar__action">
+                        <div class="mdc-button__ripple"></div>
+                        <span class="mdc-button__label">忽略</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="my-qr-code-div">
+            <img id="my-qr-code" src="http://qcode.16q.cn/code.jspx?w=500&h=500&e=h&url=%E6%89%AB%E5%95%A5%E5%91%A2qwq">
+        </div>
+
+        <div class="mdc-typography mdc-typography--headline5" id="my-typo-title">
+            这是什么？
+        </div>
+        <div class="mdc-typography mdc-typography--body1" id="my-typo">
+            <p>你可以用这个小工具来生成学习通的签到二维码。</p>
+            <p>要开始使用，你需要先用学习通之外的软件（如微信）扫描签到二维码，然后将扫描后得到的结果复制到上面，然后点击按钮即可生成实时刷新的二维码。</p>
+            <p>过期的签到二维码也可以用来生成新的二维码。</p>
+        </div>
+    </main>
+
+    <script src="./index.js"></script>
+</body>
+
+</html>

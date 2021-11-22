@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+}
+
+#my-form {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#my-form .my-textfield {
+    width: 70%;
+    max-width: 600px;
+    margin-top: 15px;
+}
+
+#my-button {
+    margin-top: 15px;
+}
+
+#my-typo-title {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#my-typo {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+#my-qr-code-div {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#my-qr-code {
+    height: 200px;
+    background-color: gray;
+    src: unset;
+}
