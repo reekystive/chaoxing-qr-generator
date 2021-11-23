@@ -16,12 +16,12 @@
     <header class="mdc-top-app-bar">
         <div class="mdc-top-app-bar__row">
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-                <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button"
+                <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button mdc-ripple-surface"
                     onclick="openSnackBar('别乱点我qwq')">menu</button>
                 <span class="mdc-top-app-bar__title">学习通签到二维码生成器</span>
             </section>
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button mdc-ripple-surface"
                     aria-label="Bookmark this page" onclick="openSnackBar('自己复制链接...')">share</button>
             </section>
         </div>
@@ -62,6 +62,9 @@
             <img id="my-qr-code" src="http://qcode.16q.cn/code.jspx?w=500&h=500&e=h&url=%E6%89%AB%E5%95%A5%E5%91%A2qwq">
         </div>
 
+        <div class="mdc-typography mdc-typography--body1" id="remain-time-div">
+            <p>剩余截止时间：<span id="remain-time">00:00:00</span></p>
+        </div>
         <div class="mdc-typography mdc-typography--headline5" id="my-typo-title">
             这是什么？
         </div>

@@ -19,7 +19,7 @@ body {
 
 #my-typo-title {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 #my-typo {
@@ -36,4 +36,9 @@ body {
     height: 200px;
     background-color: gray;
     src: unset;
+}
+
+#remain-time-div {
+    text-align: center;
+    visibility: hidden;
 }

@@ -1,8 +1,6 @@
 function init() {
     mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button'));
     mdc.topAppBar.MDCTopAppBar.attachTo(document.querySelector('.mdc-top-app-bar'));
-    mdc.textField.MDCTextField.attachTo(document.querySelector('.mdc-text-field'));
-    mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
 
     let input = document.getElementById('my-input-1');
     input.addEventListener('keydown', (e) => {
@@ -14,16 +12,34 @@ init();
 
 const snackBar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
 const textField = mdc.textField.MDCTextField.attachTo(document.querySelector('.mdc-text-field'));
+
 const qrCode = document.getElementById('my-qr-code');
+const remainTime = document.getElementById('remain-time');
+const remainTimeDiv = document.getElementById('remain-time-div');
+
 let signCode = null;
-let intervalId = null;
+let qrCodeIntervalId = null;
+let remainTimeIntervalId = null;
 
 function openSnackBar(msg) {
-    snackBar.close();
+    if (snackBar.isOpen) {
+        snackBar.close();
+    }
     snackBar.labelText = msg;
     snackBar.open();
 }
 
+
+function clearMyInterval() {
+    if (qrCodeIntervalId) {
+        clearInterval(qrCodeIntervalId);
+        qrCodeIntervalId = null;
+    }
+    if (remainTimeIntervalId) {
+        clearInterval(remainTimeIntervalId);
+        remainTimeIntervalId = null;
+    }
+}
 
 function refreshCode(aid, enc) {
     let signCodeUrl = 'https://mobilelearn.chaoxing.com/newsign/signDetail?' +
@@ -48,16 +64,42 @@ function refreshCode(aid, enc) {
                 let qrCodeUrl = 'http://qcode.16q.cn/code.jspx?w=500&h=500&e=h&' + signString;
                 qrCode.src = qrCodeUrl;
             }
+
+            if (!remainTimeIntervalId) {
+                remainTimeDiv.style.visibility = 'visible';
+                let endTime = obj['endTime']['time'];
+                refreshRemainTime(endTime);
+                remainTimeIntervalId = setInterval(() => {
+                    refreshRemainTime(endTime);
+                }, 1000)
+            }
         }
     }
     httpRequest.send();
 }
 
-function generate() {
-    if (intervalId) {
-        clearInterval(intervalId);
+function refreshRemainTime(endTime) {
+    let nowDate = new Date();
+    let nowTime = nowDate.getTime();
+    let detTime = parseInt((endTime - nowTime) / 1000);
+
+    if (detTime < 0) {
+        clearMyInterval();
+        remainTime.innerText = '已截止';
+        return;
     }
 
+    let hour = parseInt(detTime / 3600).toString().padStart(2, '0');
+    detTime %= 3600;
+    let min = parseInt(detTime / 60).toString().padStart(2, '0');
+    detTime %= 60;
+    let sec = parseInt(detTime).toString().padStart(2, '0');
+
+    let timeStr = hour + ':' + min + ':' + sec;
+    remainTime.innerText = timeStr;
+}
+
+function generate() {
     let text = textField.value.trim();
     if (text.length == 0) {
         openSnackBar('输入不能为空');
@@ -83,9 +125,12 @@ function generate() {
         return;
     }
 
+    clearMyInterval();
+    remainTimeDiv.style.visibility = 'hidden';
+
     openSnackBar('已开始刷新');
     refreshCode(aid, enc);
-    intervalId = setInterval(() => {
+    qrCodeIntervalId = setInterval(() => {
         refreshCode(aid, enc);
     }, 2000)
 }
