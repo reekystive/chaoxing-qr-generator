@@ -30,10 +30,10 @@
     <main class="mdc-top-app-bar--short-fixed-adjust">
         <div id="my-form">
             <div>
-                <label class="mdc-text-field mdc-text-field--filled my-textfield">
+                <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea my-textfield">
                     <span class="mdc-text-field__ripple"></span>
-                    <span class="mdc-floating-label" id="my-input-label-1">二维码扫描结果</span>
-                    <input class="mdc-text-field__input" type="text" aria-labelledby="my-input-label-1" id="my-input-1">
+                    <span class="mdc-floating-label" aria-label="my-input">二维码扫描结果</span>
+                    <textarea class="mdc-text-field__input" rows="3" id="my-input"></textarea>
                     <span class="mdc-line-ripple"></span>
                 </label>
             </div>
@@ -62,7 +62,7 @@
             <img id="my-qr-code" src="http://qcode.16q.cn/code.jspx?w=500&h=500&e=h&url=%E6%89%AB%E5%95%A5%E5%91%A2qwq">
         </div>
 
-        <div class="mdc-typography mdc-typography--body1" id="remain-time-div">
+        <div class="mdc-typography mdc-typography--body1" id="info-div">
             <p>剩余截止时间：<span id="remain-time">00:00:00</span></p>
         </div>
         <div class="mdc-typography mdc-typography--headline5" id="my-typo-title">
@@ -70,7 +70,7 @@
         </div>
         <div class="mdc-typography mdc-typography--body1" id="my-typo">
             <p>你可以用这个小工具来生成学习通的签到二维码。</p>
-            <p>要开始使用，你需要先用学习通之外的软件（如微信）扫描签到二维码，然后将扫描后得到的结果复制到上面，然后点击按钮即可生成实时刷新的二维码。</p>
+            <p>要开始使用，你需要先用学习通之外的软件（如微信）扫描签到二维码，并将扫描后得到的结果复制到上面，然后点击按钮即可生成实时刷新的二维码。</p>
             <p>过期的签到二维码也可以用来生成新的二维码。</p>
         </div>
     </main>

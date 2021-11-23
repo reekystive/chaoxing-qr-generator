@@ -2,7 +2,7 @@ function init() {
     mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button'));
     mdc.topAppBar.MDCTopAppBar.attachTo(document.querySelector('.mdc-top-app-bar'));
 
-    let input = document.getElementById('my-input-1');
+    let input = document.getElementById('my-input');
     input.addEventListener('keydown', (e) => {
         if (e.key == 'Enter') { generate(); }
     })
@@ -14,12 +14,12 @@ const snackBar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-
 const textField = mdc.textField.MDCTextField.attachTo(document.querySelector('.mdc-text-field'));
 
 const qrCode = document.getElementById('my-qr-code');
+const infoDiv = document.getElementById('info-div');
 const remainTime = document.getElementById('remain-time');
-const remainTimeDiv = document.getElementById('remain-time-div');
 
 let signCode = null;
 let qrCodeIntervalId = null;
-let remainTimeIntervalId = null;
+let infoIntervalId = null;
 
 function openSnackBar(msg) {
     if (snackBar.isOpen) {
@@ -35,9 +35,9 @@ function clearMyInterval() {
         clearInterval(qrCodeIntervalId);
         qrCodeIntervalId = null;
     }
-    if (remainTimeIntervalId) {
-        clearInterval(remainTimeIntervalId);
-        remainTimeIntervalId = null;
+    if (infoIntervalId) {
+        clearInterval(infoIntervalId);
+        infoIntervalId = null;
     }
 }
 
@@ -56,7 +56,7 @@ function refreshCode(aid, enc) {
                 console.log('Refresh. Code: ' + signCode);
                 openSnackBar('已刷新二维码');
 
-                signString = 'url=SIGNIN%3A' +
+                let signString = 'url=SIGNIN%3A' +
                     'aid%3D' + aid + '%26' +
                     'source%3D' + source + '%26' +
                     'Code%3D' + signCode + '%26' +
@@ -65,12 +65,12 @@ function refreshCode(aid, enc) {
                 qrCode.src = qrCodeUrl;
             }
 
-            if (!remainTimeIntervalId) {
-                remainTimeDiv.style.visibility = 'visible';
+            if (!infoIntervalId) {
+                infoDiv.style.visibility = 'visible';
                 let endTime = obj['endTime']['time'];
-                refreshRemainTime(endTime);
-                remainTimeIntervalId = setInterval(() => {
-                    refreshRemainTime(endTime);
+                refreshInfo(endTime);
+                infoIntervalId = setInterval(() => {
+                    refreshInfo(endTime);
                 }, 1000)
             }
         }
@@ -78,7 +78,7 @@ function refreshCode(aid, enc) {
     httpRequest.send();
 }
 
-function refreshRemainTime(endTime) {
+function refreshInfo(endTime) {
     let nowDate = new Date();
     let nowTime = nowDate.getTime();
     let detTime = parseInt((endTime - nowTime) / 1000);
@@ -126,7 +126,7 @@ function generate() {
     }
 
     clearMyInterval();
-    remainTimeDiv.style.visibility = 'hidden';
+    infoDiv.style.visibility = 'hidden';
 
     openSnackBar('已开始刷新');
     refreshCode(aid, enc);
