@@ -4,7 +4,10 @@ function init() {
 
     let input = document.getElementById('my-input');
     input.addEventListener('keydown', (e) => {
-        if (e.key == 'Enter') { generate(); }
+        if (e.key == 'Enter') {
+            e.preventDefault();
+            document.getElementById('my-button').click();
+        }
     })
 }
 
